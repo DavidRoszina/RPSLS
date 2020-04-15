@@ -8,26 +8,24 @@ namespace RPSLS
     {
 
         // member variables (HAS A)
+        public int pointsToWin;
+        public Player player1;
+        public Player player2;
 
         // Constructor (SPAWNER)
         public Game()
         {
-
+            pointsToWin = 3;
+            player1 = new HumanPlayer();
         }
 
         //member methods (CAN DO)
         public void RunGame()
         {
-            Console.WriteLine("Welcome to Rock-Paper-Scissors-Lizard-Spock");
-            // 1) Display rules (also include how many rounds!)     [Game]
-            Console.WriteLine("In this game, each player will select a gesture, and the winning player will be awarded a point.");
-            Console.WriteLine("The winner will be best 3 out of 5");
-            Console.WriteLine("Rock beats Scissors and Lizard");
-            Console.WriteLine("Scissors beats Paper and Lizard");
-            Console.WriteLine("Paper beats Rock and Spock");
-            Console.WriteLine("Lizard beats Spock and Paper");
-            Console.WriteLine("Spock beats Rock and Scissors");
-            // 2) What are we playing? (HvH or HvAI)                [Game]
+            DisplayRules();
+            GameMode();
+            // 1) Display rules (also include how many rounds!)     [Game] *
+            // 2) What are we playing? (HvH or HvAI)                [Game] *
 
             //// One round of game ////
             // 3) Display gesture options to the players            [Player]
@@ -43,6 +41,36 @@ namespace RPSLS
             // 9b) Display final winner                         [Game]
 
             // 10) Ask to play again?                               [Game]
+        }
+        public void DisplayRules()
+        {
+            Console.WriteLine("Welcome to Rock-Paper-Scissors-Lizard-Spock");
+            Console.WriteLine("In this game, each player will select a gesture, and the winning player will be awarded a point.");
+            Console.WriteLine("The winner will be best 3 out of 5");
+            Console.WriteLine("Rock beats Scissors and Lizard");
+            Console.WriteLine("Scissors beats Paper and Lizard");
+            Console.WriteLine("Paper beats Rock and Spock");
+            Console.WriteLine("Lizard beats Spock and Paper");
+            Console.WriteLine("Spock beats Rock and Scissors");
+        }
+        public void GameMode()
+        {
+            Console.WriteLine("Enter 1 to play Human vs AI, or enter 2 to play Human vs Human:");
+            string userInput = Console.ReadLine();
+            if (userInput == "1")
+            {
+                // HvC game
+                player2 = new AIPlayer();
+            }
+            else if (userInput == "2")
+            {
+                // HvH game
+                player2 = new HumanPlayer();
+            }
+            else
+            {
+                GameMode();
+            }
         }
     }
 }
