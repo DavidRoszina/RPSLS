@@ -25,39 +25,31 @@ namespace RPSLS
         {
             DisplayRules();
             SelectGameMode();
-            // 1) Display rules (also include how many rounds!)     [Game] *
-            // 2) What are we playing? (HvH or HvAI)                [Game] *
+            // 1) Display rules (also include how many rounds!)         [Game]
+            // 2) What are we playing? (HvH or HvAI)                    [Game]
 
             //// One round of game ////
             DisplayGestureOptions();
             while (player1.score < pointsToWin && player2.score < pointsToWin)
             {
                 Console.WriteLine("Starting round!");
-
-                player2.ChooseGesture();
+                // 3) Display gesture options to the players            [Game]
+                // 4) Player 1 chooses gesture                          [Player]
+                // 5) Player 2 chooses a gesture                        [Player]
+                // 6) Compare gestures (assign a point / check for tie) [Game]
+                // 7) Display current score                             [Game]
+                // 8) Check for Game Winner (best of 3/5)               [Game]
+                // if no                
+                // 9a) Repeat steps 3-8
                 player1.ChooseGesture();
+                player2.ChooseGesture();
                 CompareGestures();
                 DisplayCurrentScore();
             }
-            DisplayWinner();
-            // 3) Display gesture options to the players            [Game] *
-
-            // 4) Player 1 chooses gesture 
-
-            // 5) Player 2 chooses a gesture                        [Player]*
-
-            // 6) Compare gestures (assign a point / check for tie) [Game]
-
-            // 7) Display current score                             [Game]
-
-            // 8) Check for Game Winner (best of 3/5)               [Game]*
-            
-            // if no                
-            // 9a) Repeat steps 3-8
             // if yes
-            // 9b) Display final winner                             [Game]
-
-            // 10) Ask to play again?                               [Game]
+            // 9b) Display final winner                                 [Game]
+            DisplayWinner();
+            // 10) Ask to play again?                                   [Game][Optional]
         }
         public void DisplayRules()
         {
@@ -127,16 +119,41 @@ namespace RPSLS
                 Console.WriteLine("Player 1 wins the round!");
                 player1.score++;
             }
-            else
+            else if ((player2.gesture == 0 && player1.gesture == 2) || (player2.gesture == 0 && player1.gesture == 3))
             {
                 Console.WriteLine("Player 2 wins the round!");
                 player2.score++;
             }
+            else if ((player2.gesture == 1 && player1.gesture == 0) || (player2.gesture == 1 && player1.gesture == 4))
+            {
+                Console.WriteLine("Player 2 wins the round!");
+                player2.score++;
+            }
+            else if ((player2.gesture == 2 && player1.gesture == 1) || (player2.gesture == 2 && player1.gesture == 3))
+            {
+                Console.WriteLine("Player 2 wins the round!");
+                player2.score++;
+            }
+            else if ((player2.gesture == 3 && player1.gesture == 1) || (player2.gesture == 3 && player1.gesture == 4))
+            {
+                Console.WriteLine("Player 2 wins the round!");
+                player2.score++;
+            }
+            else if ((player2.gesture == 4 && player1.gesture == 0) || (player2.gesture == 4 && player1.gesture == 2))
+            {
+                Console.WriteLine("Player 2 wins the round!");
+                player2.score++;
+            }
+            else
+            { 
+                return;
+            }
+
         }
         public void DisplayCurrentScore()
         {
             Console.WriteLine("Player 1 Score:" + player1.score);
-            Console.WriteLine("Player 1 Score:" + player2.score);
+            Console.WriteLine("Player 2 Score:" + player2.score);
         }
         public void DisplayWinner()
         {
