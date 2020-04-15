@@ -7,10 +7,11 @@ namespace RPSLS
     class Game
     {
 
-        // member variables (HAS A)
+      // member variables (HAS A)
         public int pointsToWin;
         public Player player1;
         public Player player2;
+        
 
         // Constructor (SPAWNER)
         public Game()
@@ -23,22 +24,36 @@ namespace RPSLS
         public void RunGame()
         {
             DisplayRules();
-            GameMode();
+            SelectGameMode();
             // 1) Display rules (also include how many rounds!)     [Game] *
             // 2) What are we playing? (HvH or HvAI)                [Game] *
 
             //// One round of game ////
-            // 3) Display gesture options to the players            [Player]
-            // 4) Player 1 chooses gesture                          [Player]
-            // 5) Player 2 chooses a gesture                        [Player]
-            // 6) Compare gestures (assign a point / check for tie) [Game]
-            // 7) Display current score                             [Game]
-            // 8) Check for Game Winner (best of 3/5)               [Game]
+            DisplayGestureOptions();
+            while (player1.score < pointsToWin && player2.score < pointsToWin)
+            {
+                Console.WriteLine("Starting round!");
+                player1.ChooseGesture();
+                player2.ChooseGesture();
 
+                
+
+            }
+            // 3) Display gesture options to the players            [Game] *
+
+            // 4) Player 1 chooses gesture                          [Player]*
+            // 5) Player 2 chooses a gesture                        [Player]*
+
+            // 6) Compare gestures (assign a point / check for tie) [Game]
+
+            // 7) Display current score                             [Game]
+
+            // 8) Check for Game Winner (best of 3/5)               [Game]*
+            DisplayWinner();
             // if no                
             // 9a) Repeat steps 3-8
             // if yes
-            // 9b) Display final winner                         [Game]
+            // 9b) Display final winner                             [Game]
 
             // 10) Ask to play again?                               [Game]
         }
@@ -53,7 +68,8 @@ namespace RPSLS
             Console.WriteLine("Lizard beats Spock and Paper");
             Console.WriteLine("Spock beats Rock and Scissors");
         }
-        public void GameMode()
+
+        public void SelectGameMode()
         {
             Console.WriteLine("Enter 1 to play Human vs AI, or enter 2 to play Human vs Human:");
             string userInput = Console.ReadLine();
@@ -69,8 +85,42 @@ namespace RPSLS
             }
             else
             {
-                GameMode();
+                SelectGameMode();
             }
         }
+
+        public void DisplayGestureOptions()
+        {
+            Console.WriteLine("Players will choose a gesture from the list: rock, paper, scissors, lizard, spock");
+        }
+
+        public void CompareGestures()
+        {
+           if (player1.gesture == 0 && player2.gesture == 0)
+                {
+                Console.WriteLine("It was a tie!");
+                }
+        }
+        public void DisplayScore()
+        {
+            Console.WriteLine("Player 1 Score:" + player1.score);
+            Console.WriteLine("Player 1 Score:" + player2.score);
+        }
+        public void DisplayWinner()
+        {
+            if (player1.score == pointsToWin)
+            {
+                Console.WriteLine("Player 1 Wins the game!");
+            }
+            else if (player2.score == pointsToWin)
+            {
+                Console.WriteLine("Player 2 Wins the game!");
+            }
+            else
+            {
+                return;
+            }
+        }
+
     }
 }
