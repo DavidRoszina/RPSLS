@@ -33,15 +33,17 @@ namespace RPSLS
             while (player1.score < pointsToWin && player2.score < pointsToWin)
             {
                 Console.WriteLine("Starting round!");
-                player1.ChooseGesture();
+
                 player2.ChooseGesture();
-
-                
-
+                player1.ChooseGesture();
+                CompareGestures();
+                DisplayCurrentScore();
             }
+            DisplayWinner();
             // 3) Display gesture options to the players            [Game] *
 
-            // 4) Player 1 chooses gesture                          [Player]*
+            // 4) Player 1 chooses gesture 
+
             // 5) Player 2 chooses a gesture                        [Player]*
 
             // 6) Compare gestures (assign a point / check for tie) [Game]
@@ -49,7 +51,7 @@ namespace RPSLS
             // 7) Display current score                             [Game]
 
             // 8) Check for Game Winner (best of 3/5)               [Game]*
-            DisplayWinner();
+            
             // if no                
             // 9a) Repeat steps 3-8
             // if yes
@@ -96,12 +98,42 @@ namespace RPSLS
 
         public void CompareGestures()
         {
-           if (player1.gesture == 0 && player2.gesture == 0)
-                {
+            if (player1.gesture == player2.gesture)
+            {
                 Console.WriteLine("It was a tie!");
-                }
+            }
+            else if ((player1.gesture == 0 && player2.gesture == 2) || (player1.gesture == 0 && player2.gesture == 3))
+            {
+                Console.WriteLine("Player 1 wins the round!");
+                player1.score++;
+            }
+            else if ((player1.gesture == 1 && player2.gesture == 0) || (player1.gesture == 1 && player2.gesture == 4))
+            {
+                Console.WriteLine("Player 1 wins the round!");
+                player1.score++;
+            }
+            else if ((player1.gesture == 2 && player2.gesture == 1) || (player1.gesture == 2 && player2.gesture == 3))
+            {
+                Console.WriteLine("Player 1 wins the round!");
+                player1.score++;
+            }
+            else if ((player1.gesture == 3 && player2.gesture == 1) || (player1.gesture == 3 && player2.gesture == 4))
+            {
+                Console.WriteLine("Player 1 wins the round!");
+                player1.score++;
+            }
+            else if ((player1.gesture == 4 && player2.gesture == 0) || (player1.gesture == 4 && player2.gesture == 2))
+            {
+                Console.WriteLine("Player 1 wins the round!");
+                player1.score++;
+            }
+            else
+            {
+                Console.WriteLine("Player 2 wins the round!");
+                player2.score++;
+            }
         }
-        public void DisplayScore()
+        public void DisplayCurrentScore()
         {
             Console.WriteLine("Player 1 Score:" + player1.score);
             Console.WriteLine("Player 1 Score:" + player2.score);
